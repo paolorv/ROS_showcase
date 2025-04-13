@@ -8,13 +8,13 @@ class Gps_Odometry{
 	public:
     Gps_Odometry(){
 		//init parameters
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
-        this.x1 = 0;
-        this.y1 = 0;
-        this.z1 = 0;
-        this.theta = 0;
+        this->x = 0;
+        this->y = 0;
+        this->z = 0;
+        this->x1 = 0;
+        this->y1 = 0;
+        this->z1 = 0;
+        this->theta = 0;
 
 		//publish and subscribe
 		sub = nodeHandle.subscribe("swiftnav/front/gps_pose",1000,&Gps_Odometry::odom_callback,this);
@@ -23,7 +23,7 @@ class Gps_Odometry{
     }
     private:
     //node Handle Object
-    ros:NodeHandle nodeHandle;
+    ros::NodeHandle nodeHandle;
 
     //tf
     tf::TransformBroadcaster br;
@@ -57,8 +57,8 @@ class Gps_Odometry{
         double alt_deg = msg->altitude;
 
         ros::Time current_time = msg->header.stamp;
-        this.last_time = current_time;
-        double dt = (current_time - this.last_time).toSec();
+        this->last_time = current_time;
+        double dt = (current_time - this->last_time).toSec();
 
         if (this->last_time.isZero()){
             this->last_time = current_time;
@@ -67,9 +67,9 @@ class Gps_Odometry{
 
         if(dt <= 0 || dt > 1) return;
 
-        this.x = this.x1;
-        this.y = this.y1;
-        this.z = this.z1;
+        this->x = this->x1;
+        this->y = this->y1;
+        this->z = this->z1;
 
         double a = 6378137.0;             // WGS84 major axis
     	double f = 1 / 298.257223563;     // WGS84 flattening
@@ -78,6 +78,7 @@ class Gps_Odometry{
         double lat = lat_deg * M_PI / 180.0;
     	double lon = lon_deg * M_PI / 180.0;
 
+
     	double sin_lat = sin(lat);
     	double cos_lat = cos(lat);
     	double sin_lon = sin(lon);
@@ -85,58 +86,58 @@ class Gps_Odometry{
 
 		double N = a / sqrt(1 - e2 * sin_lat * sin_lat);
 
-        double x_ecef = (N + alt_m) * cos_lat * cos_lon;
-    	double y_ecef = (N + alt_m) * cos_lat * sin_lon;
-        double z_ecef = ((1 - e2) * N + alt_m) * sin_lat;
+        double x_ecef = (N + alt_deg) * cos_lat * cos_lon;
+    	double y_ecef = (N + alt_deg) * cos_lat * sin_lon;
+        double z_ecef = ((1 - e2) * N + alt_deg) * sin_lat;
 
-        if(this.initialized==false){
-			this.x = x_ecef;
-            this.y = y_ecef;
-            this.z = z_ecef;
-          initialized = true;
+        if(this->initialized==false){
+			this->x = x_ecef;
+            this->y = y_ecef;
+            this->z = z_ecef;
+          this->initialized = true;
         }
 
 
-        double dx = x_ecef - this.x;
-		double dy = y_ecef - this.y;
-        double dz = z_ecef - this.z;
+        double dx = x_ecef - this->x;
+		double dy = y_ecef - this->y;
+        double dz = z_ecef - this->z;
 
 		//ENU XYZ
-        this.x1 = -sin(lon) * dx + cos(lon) * dy;
-    	this.y1 = -sin(lat) * cos(lon) * dx - sin(lat) * sin(lon) * dy + + cos(lat) * dz;
-    	this.z1 =  cos(lat) * cos(lon) * dx + cos(lat) * sin(lon) * dy+ sin(lat) * dz;
+        this->x1 = -sin(lon) * dx + cos(lon) * dy;
+    	this->y1 = -sin(lat) * cos(lon) * dx - sin(lat) * sin(lon) * dy + + cos(lat) * dz;
+    	this->z1 =  cos(lat) * cos(lon) * dx + cos(lat) * sin(lon) * dy+ sin(lat) * dz;
 		//speed and angular
-        double speed = (this.x1 - this.x) /dt;
-        double dtheta = this.theta - atan2(this.y1 - this.y, this.x1 - this.x);
+        double speed = (this->x1 - this->x) /dt;
+        double dtheta = this->theta - atan2(this->y1 - this->y, this->x1 - this->x);
         //Orientation
-        this.theta = atan2(this.y1 - this.y, this.x1 - this.x);
+        this->theta = atan2(this->y1 - this->y, this->x1 - this->x);
 
         //Odometry message
-        this.odom_msg.header.stamp = this.current_time;
-        this.odom_msg.header.frame_id = "world";
-        this.odom_msg.child_frame_id = "gps_odom";
-        this.odom_msg.pose.pose.position.x = this.x;
-        this.odom_msg.pose.pose.position.y = this.y;
-        this.odom_msg.pose.pose.position.z = 0.0;
-        this.odom_msg.pose.pose.orientation = tf::createQuaternionMsgFromYaw(this.theta);
+        this->odom_msg.header.stamp = current_time;
+        this->odom_msg.header.frame_id = "world";
+        this->odom_msg.child_frame_id = "gps_odom";
+        this->odom_msg.pose.pose.position.x = this->x;
+        this->odom_msg.pose.pose.position.y = this->y;
+        this->odom_msg.pose.pose.position.z = 0.0;
+        this->odom_msg.pose.pose.orientation = tf::createQuaternionMsgFromYaw(this->theta);
 
-        this.odom_msg.twist.twist.linear.x = speed;
-        this.odom_msg.twist.twist.angular.z = dtheta / dt;
+        this->odom_msg.twist.twist.linear.x = speed;
+        this->odom_msg.twist.twist.angular.z = dtheta / dt;
 
-        this.pub.publish(this.odom_msg);
+        this->pub.publish(this->odom_msg);
 
 		 //Tf
-        this.tr.setOrigin(tf::Vector3(this.x1, this.y1, 0));
-        this.q.setRPY(0, 0, this.theta);
-        this.tr.setRotation(q);
+        this->tr.setOrigin(tf::Vector3(this->x1, this->y1, 0));
+        this->q.setRPY(0, 0, this->theta);
+        this->tr.setRotation(q);
 
-        this.br.sendTransform(tf::StampedTransform(tr, current_time, "world", "gps_odom"));
+        this->br.sendTransform(tf::StampedTransform(tr, current_time, "world", "gps_odom"));
 
 
     }
 
 
-}
+};
 
 int main(int argc, char **argv) {
 	ros::init(argc, argv, "gps_odometer");
