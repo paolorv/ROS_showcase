@@ -1,0 +1,26 @@
+<launch>
+    <!-- Global parameter -->
+    <param name="starting_gps_theta" value="1.474981" />
+
+    <!-- Set simulation time -->
+    <param name="/use_sim_time" value="true" />
+
+    <!-- Start the odometer node -->
+    <node pkg="first_project" type="odometer" name="odometer" output="screen">
+        <param name="wheelbase" value="1.765" />
+        <param name="scale_factor" value="32" />
+        <param name="steer_threshold" value="0.002" />
+        <param name="speed_threshold" value="0.1" />
+    </node>
+
+    <!-- Start the gps odometer node -->
+    <node pkg="first_project" type="gps_odometer" name="gps_odometer" output="screen">
+        <param name="motion_threshold" value="0.1" />
+    </node>
+
+    <!-- Start RViz with config -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find first_project)/rviz/config.rviz" />
+
+    <!-- Play the rosbag file -->
+    <node pkg="rosbag" type="play" name="bag_play" args="--clock /home/robotics/data/project.bag" />
+</launch>
