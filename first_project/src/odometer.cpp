@@ -47,7 +47,7 @@ private:
         steer = (steer/this->scale_factor) * M_PI / 180; //convert it in grad
         
         //add threshold to steering noise
-        if((std::abs(steer) < 0.002) || (speed < 0.1)) steer = 0;
+        if((std::abs(steer) < 0.02) || (speed < 0.1)) steer = 0;
 
         //setup current time  
         ros::Time current_time = msg->header.stamp;
