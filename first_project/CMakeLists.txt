@@ -40,23 +40,5 @@ add_executable(sector_times src/sector_times.cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(sector_times ${catkin_LIBRARIES})
 
-## Find catkin and required ROS components
-#find_package(catkin REQUIRED COMPONENTS
-#  roscpp
-#  std_msgs
-#  geometry_msgs
-#  message_generation
-#  rosbag
-#)
-
-
-
-## Declare catkin package
-#catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES ${PROJECT_NAME}
-#  CATKIN_DEPENDS roscpp std_msgs geometry_msgs message_runtime
-#)
-
 ## Add dependencies to ensure message generation happens before compiling
 add_dependencies(sector_times ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
