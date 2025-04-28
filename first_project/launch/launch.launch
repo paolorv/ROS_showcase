@@ -17,6 +17,11 @@
     <node pkg="first_project" type="gps_odometer" name="gps_odometer" output="screen">
         <param name="motion_threshold" value="0.1" />
     </node>
+    
+    <!-- Start the sector_times node -->
+    <node pkg="first_project" type="sector_times" name="sector_times" output="screen">
+        
+    </node>
 
     <!-- Start RViz with config -->
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find first_project)/rviz/config.rviz" />
