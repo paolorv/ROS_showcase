@@ -97,13 +97,13 @@ private:
     void speedCallback(const geometry_msgs::PointStamped::ConstPtr& msg) {
         // Extract speed from PointStamped message
         // Evaluate vector module
-        double current_speed_x = msg->point.x;
+        //double current_speed_x = msg->point.x;
         double current_speed_y = msg->point.y;
-        current_speed_ = sqrt(current_speed_x * current_speed_x + current_speed_y * current_speed_y);
+        //current_speed_ = sqrt(current_speed_x * current_speed_x + current_speed_y * current_speed_y);
 
         // Add the speed to the current sector's speed array for average calculation (ignore if null)
-        if (current_sector_ > 0 && current_speed_ > 0.1) {
-            sector_speeds_.push_back(current_speed_);
+        if (current_sector_ > 0 && current_speed_y > 0.1) {
+            sector_speeds_.push_back(current_speed_y);
         }
         
         ROS_DEBUG("Current speed: %.2f", current_speed_);

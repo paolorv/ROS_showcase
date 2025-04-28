@@ -1,6 +1,4 @@
-# ROS1_odometry
-
-ROS Project #1 - Robotics@PoliMi 2025
+ROS Project #1 - 2025
 Riva, Staffaroni Biagetti, Meshcheriakov
 
 Node 3 (sector times):
