@@ -47,7 +47,7 @@ private:
         steer = (steer/this->scale_factor) * M_PI / 180; //convert it in grad
         
         //add threshold to steering noise
-        if((std::abs(steer) < 0.02) || (speed < 0.1)) steer = 0;
+        if((std::abs(steer) < this->steer_threshold) || (speed < this->speed_threshold)) steer = 0;
 
         //setup current time  
         ros::Time current_time = msg->header.stamp;
@@ -133,7 +133,7 @@ public:
 
         //load parameters
         this->private_nh.param("wheelbase", this->wheelbase, 1.765);
-        this->private_nh.param("scale_factor", this->scale_factor, 32);
+        this->private_nh.param("scale_factor", this->scale_factor, 32); //32 was the default value given for the steering factor 
         this->private_nh.param("steer_threshold", this->steer_threshold, 0.02);
         this->private_nh.param("speed_threshold", this->speed_threshold, 0.1);
         this->nh.param("starting_gps_theta", this->theta, 1.474981);

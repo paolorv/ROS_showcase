@@ -9,7 +9,7 @@
     <node pkg="first_project" type="odometer" name="odometer" output="screen">
         <param name="wheelbase" value="1.765" />
         <param name="scale_factor" value="32" />
-        <param name="steer_threshold" value="0.002" />
+        <param name="steer_threshold" value="0.02" />
         <param name="speed_threshold" value="0.1" />
     </node>
 
