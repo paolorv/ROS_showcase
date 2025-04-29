@@ -7,7 +7,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp tf std_msgs nav_msgs sensor_msgs 
 ## Declare the message files to be built
 add_message_files(
   FILES
-  secotor_times.msg  # Note: the filename is kept as "secotor_times.msg" per teacher specification
+  sector_times.msg  # Note: the filename is kept as "sector_times.msg" per teacher specification
 )
 
 ## Generate added messages with dependencies

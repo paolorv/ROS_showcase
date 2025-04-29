@@ -2,7 +2,7 @@
 #include <ros/ros.h>
 #include <geometry_msgs/PointStamped.h>
 #include <sensor_msgs/NavSatFix.h>
-#include <first_project/secotor_times.h>
+#include <first_project/sector_times.h>
 #include <vector>
 #include <cmath>
 
@@ -17,7 +17,7 @@ public:
         gps_sub_ = nh_.subscribe("/swiftnav/front/gps_pose", 10, &SectorTimesNode::gpsCallback, this);
         
         // Publisher for sector times
-        sector_pub_ = nh_.advertise<first_project::secotor_times>("/sector_times", 10);
+        sector_pub_ = nh_.advertise<first_project::sector_times>("/sector_times", 10);
         
         // Initialize variables
         current_sector_ = 0;
@@ -243,7 +243,7 @@ private:
     }
     
     void publishSectorInfo() {
-        first_project::secotor_times msg;
+        first_project::sector_times msg;
         msg.current_sector = current_sector_;
         msg.current_sector_time = (ros::Time::now() - sector_start_time_).toSec();
         msg.current_sector_mean_speed = calculateMeanSpeed();
