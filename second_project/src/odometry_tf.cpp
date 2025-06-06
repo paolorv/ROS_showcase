@@ -12,8 +12,8 @@ public:
     void odomCallback(const nav_msgs::Odometry::ConstPtr& msg) {
         geometry_msgs::TransformStamped tf_msg;
         tf_msg.header.stamp = msg->header.stamp;
-        tf_msg.header.frame_id = "base_link";
-        tf_msg.child_frame_id = "odom";
+        tf_msg.header.frame_id = "odom";
+        tf_msg.child_frame_id = "base_link";
 
         tf_msg.transform.translation.x = msg->pose.pose.position.x;
         tf_msg.transform.translation.y = msg->pose.pose.position.y;

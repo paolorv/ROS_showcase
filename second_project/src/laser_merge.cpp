@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
                 merged_scan.range_min = std::max(front_scan.range_min, back_scan.range_min);
                 merged_scan.range_max = std::min(front_scan.range_max, back_scan.range_max);
 
-                int num_ranges = std::ceil((merged_scan.angle_max - merged_scan.angle_min) / merged_scan.angle_increment);
+                int num_ranges = std::floor((merged_scan.angle_max - merged_scan.angle_min) / merged_scan.angle_increment);
                 merged_scan.ranges.assign(num_ranges, std::numeric_limits<float>::infinity());
                 merged_scan.intensities.assign(num_ranges, 0.0f);
 

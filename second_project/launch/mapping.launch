@@ -14,7 +14,10 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="sick_back_tf"
       args="-0.3 0.0 -0.115 3.1415 0 3.1415 base_link sick_back" />
 
+   <!-- GMapping -->
+  <include file="$(find second_project)/launch/slam_toolbox.launch" />
+  
   <!-- Optional: Launch RViz with config -->
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find second_project)/rviz/merge_view.rviz" required="true" />
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find second_project)/rviz/mapping.rviz" required="true" />
   
 </launch>
