@@ -13,6 +13,10 @@ find_package(catkin REQUIRED COMPONENTS
   tf2
   tf2_ros
   tf2_geometry_msgs
+  nav_msgs
+  geometry_msgs
+  actionlib
+  move_base_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,11 +108,16 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
+
+#catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES second_project
 #  CATKIN_DEPENDS laser_geometry pcl_conversions pcl_ros roscpp sensor_msgs slam_toolbox tf2_ros
 #  DEPENDS system_lib
+#)
+
+catkin_package(
+  CATKIN_DEPENDS roscpp sensor_msgs nav_msgs geometry_msgs tf2_ros tf2_geometry_msgs tf2_sensor_msgs actionlib move_base_msgs
 )
 
 ###########
@@ -213,3 +222,6 @@ target_link_libraries(laser_merge ${catkin_LIBRARIES})
 
 add_executable(odometry_tf src/odometry_tf.cpp)
 target_link_libraries(odometry_tf ${catkin_LIBRARIES})
+
+add_executable(goal_publisher src/goal_publisher.cpp)
+target_link_libraries(goal_publisher ${catkin_LIBRARIES})
