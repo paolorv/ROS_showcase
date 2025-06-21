@@ -1,38 +1,56 @@
 <launch>
+  <arg name="map_file" default="$(find second_project)/maps/map.yaml"/>
+  <arg name="world_file" default="$(find second_project)/maps/stage/robot.world"/>
+  <arg name="initial_pose_x" default="0.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="0.0"/>
+
   <param name="/use_sim_time" value="true"/>
 
-  <!-- Map server -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find second_project)/maps/map.yaml"/>
-
-  <!-- Stage simulation -->
-  <node pkg="stage_ros" type="stageros" name="stageros" args="$(find second_project)/world/robot.world">
-    <param name="base_watchdog_timeout" value="0.2"/>
+  <!-- ***************** Robot simulation ***************** -->
+  <node pkg="stage_ros" type="stageros" name="stageros" args="$(arg world_file)">
+    <param name="base_watchdog_timeout" value="0.5"/>
+    <remap from="base_scan" to="scan"/>
   </node>
 
-  <!-- AMCL -->
-  <node pkg="amcl" type="amcl" name="amcl">
-    <rosparam file="$(find second_project)/config/amcl_params.yaml" command="load"/>
-    <param name="initial_pose_x" value="0"/>
-    <param name="initial_pose_y" value="0"/>
-    <param name="initial_pose_a" value="0"/>
-  </node>
-
-  <!-- Move base -->
+  <!-- ************** Navigation *************** -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find second_project)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
-    <rosparam file="$(find second_project)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
-    <rosparam file="$(find second_project)/config/local_costmap_params.yaml" command="load"/>
-    <rosparam file="$(find second_project)/config/global_costmap_params.yaml" command="load"/>
-    <rosparam file="$(find second_project)/config/base_local_planner_params.yaml" command="load"/>
-    <rosparam file="$(find second_project)/config/move_base_params.yaml" command="load"/>
+    <rosparam file="$(find second_project)/cfg/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find second_project)/cfg/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+    <rosparam file="$(find second_project)/cfg/local_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find second_project)/cfg/global_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find second_project)/cfg/dwa_local_planner_params.yaml" command="load"/>
+    <rosparam file="$(find second_project)/cfg/move_base_params.yaml" command="load"/>
+    
+    <param name="base_global_planner" value="navfn/NavfnROS"/>
+    <param name="planner_frequency" value="1.0"/>
+    <param name="planner_patience" value="5.0"/>
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>
+    <param name="controller_frequency" value="5.0"/>
+    <param name="controller_patience" value="5.0"/>
+    <param name="clearing_rotation_allowed" value="true"/>
   </node>
+
+  <!-- ****** Maps ***** -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)">
+    <param name="frame_id" value="map"/>
+  </node>
+
+  <!-- ****** amcl ***** -->
+  <include file="$(find second_project)/launch/amcl.launch.xml">
+    <arg name="scan_topic" value="scan"/>
+    <arg name="use_map_topic" value="true"/>
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
 
   <!-- Goal publisher -->
   <node pkg="second_project" type="goal_publisher" name="goal_publisher">
     <param name="csv_file" value="$(find second_project)/csv/goals.csv"/>
   </node>
 
-  <!-- RViz -->
+  <!-- **************** Visualisation **************** -->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find second_project)/rviz/navigation.rviz"/>
 
 </launch>

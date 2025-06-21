@@ -28,7 +28,7 @@ floorplan
   name "map"
   size [ 20.0 20.0 0.8]
   pose [ 0 0 0 0 ]
-  bitmap "$(find second_project)/maps/map.pgm"
+  bitmap "map.pgm"
 )
 
 robot

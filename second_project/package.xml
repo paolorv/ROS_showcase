@@ -2,11 +2,10 @@
 <package format="2">
   <name>second_project</name>
   <version>0.0.0</version>
-  <description>The second_project package</description>
+  <description>Second robotics project with mapping and navigation</description>
   
-  <maintainer email="robotics@todo.todo">robotics</maintainer>
-  
-  <license>TODO</license>
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>MIT</license>
 
   <buildtool_depend>catkin</buildtool_depend>
   
@@ -14,7 +13,6 @@
   <build_depend>sensor_msgs</build_depend>
   <build_depend>nav_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
-  <build_depend>tf2</build_depend>
   <build_depend>tf2_ros</build_depend>
   <build_depend>tf2_geometry_msgs</build_depend>
   <build_depend>tf2_sensor_msgs</build_depend>
@@ -25,7 +23,6 @@
   <build_export_depend>sensor_msgs</build_export_depend>
   <build_export_depend>nav_msgs</build_export_depend>
   <build_export_depend>geometry_msgs</build_export_depend>
-  <build_export_depend>tf2</build_export_depend>
   <build_export_depend>tf2_ros</build_export_depend>
   <build_export_depend>tf2_geometry_msgs</build_export_depend>
   <build_export_depend>tf2_sensor_msgs</build_export_depend>
@@ -36,7 +33,6 @@
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>tf2</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>tf2_geometry_msgs</exec_depend>
   <exec_depend>tf2_sensor_msgs</exec_depend>
