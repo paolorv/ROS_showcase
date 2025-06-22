@@ -52,8 +52,8 @@ int main(int argc, char** argv) {
                 merged_scan.angle_increment = front_scan.angle_increment; 
                 merged_scan.time_increment = front_scan.time_increment;
                 merged_scan.scan_time = front_scan.scan_time;
-                merged_scan.range_min = std::max(front_scan.range_min, back_scan.range_min);
-                merged_scan.range_max = std::min(front_scan.range_max, back_scan.range_max);
+                merged_scan.range_min = 0.25f;
+                merged_scan.range_max = 20.0f;
 
                 int num_ranges = std::floor((merged_scan.angle_max - merged_scan.angle_min) / merged_scan.angle_increment);
                 merged_scan.ranges.assign(num_ranges, std::numeric_limits<float>::infinity());
@@ -66,7 +66,7 @@ int main(int argc, char** argv) {
                     for (size_t i = 0; i < scan.ranges.size(); ++i) {
                         float angle = scan.angle_min + i * scan.angle_increment;
                         float range = scan.ranges[i];
-                        if (range < 0.25 || range > scan.range_max || std::isnan(range)) continue;
+                        if (range < 0.25f || range > 20.0f || std::isnan(range)) continue;
 
                         float x = range * std::cos(angle);
                         float y = range * std::sin(angle);
