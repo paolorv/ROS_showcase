@@ -1,8 +1,8 @@
 <launch>
   <arg name="map_file" default="$(find second_project)/maps/map.yaml"/>
   <arg name="world_file" default="$(find second_project)/maps/stage/robot.world"/>
-  <arg name="initial_pose_x" default="0.0"/>
-  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_x" default="-6.0"/>
+  <arg name="initial_pose_y" default="-4.0"/>
   <arg name="initial_pose_a" default="0.0"/>
 
   <param name="/use_sim_time" value="true"/>

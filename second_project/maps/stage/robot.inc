@@ -2,7 +2,7 @@ define laser ranger
 (
   sensor
   (
-    range_max 100.0
+    range_max 20.0
     fov 360.0
     samples 1080
   )
@@ -13,12 +13,12 @@ define laser ranger
 define robot position
 (
   pose [ 0.0 0.0 0.0 0.0 ]
-  odom_error [0.01 0.01 999999 999999 999999 0.01]
+  odom_error [0.01 0.01 0.0 0.0 0.0 0.01]
 
   size [ 0.54 0.40 0.15 ]
   origin [ 0.0 0.0 0.0 0.0 ]
   gui_nose 1
-  drive "diff"
+  drive "omni"
   color "red"
   
   laser(pose [ 0.0 0.0 0.0 0.0 ])
