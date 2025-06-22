@@ -12,17 +12,18 @@ define laser ranger
 
 define robot position
 (
-  localization "gps"
-  localization_origin [ 0 0 0 0 ]
-  
+  pose [ 0.0 0.0 0.0 0.0 ]
+  odom_error [0.01 0.01 999999 999999 999999 0.01]
+
   size [ 0.54 0.40 0.15 ]
-  origin [ 0 0 0 0 ]
+  origin [ 0.0 0.0 0.0 0.0 ]
   gui_nose 1
   drive "diff"
   color "red"
   
-  laser(pose [ 0 0 0 0 ])
+  laser(pose [ 0.0 0.0 0.0 0.0 ])
   
-  velocity_bounds [-0.5 0.5 0 0 0 0 -90.0 90.0 ]
-  acceleration_bounds [-0.5 0.5 0 0 0 0 -90 90.0 ]
+  # Velocity bounds: [xmin xmax ymin ymax zmin zmax amin amax]
+  velocity_bounds [-0.5 0.5 -0.5 0.5 0.0 0.0 -90.0 90.0]
+  acceleration_bounds [-0.5 0.5 -0.5 0.5 0.0 0.0 -90.0 90.0]
 )
