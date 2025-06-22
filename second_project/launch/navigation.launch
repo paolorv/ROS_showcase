@@ -13,6 +13,11 @@
     <remap from="base_scan" to="scan"/>
   </node>
 
+  <!-- Launch Motion and Measurement models -->
+  <node name="laser_merge" pkg="second_project" type="laser_merge" output="screen" />
+
+  <node name="odometry_tf" pkg="second_project" type="odometry_tf" output="screen" />
+
   <!-- ************** Navigation *************** -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <rosparam file="$(find second_project)/cfg/costmap_common_params.yaml" command="load" ns="global_costmap"/>
@@ -25,6 +30,7 @@
     <param name="base_global_planner" value="navfn/NavfnROS"/>
     <param name="planner_frequency" value="1.0"/>
     <param name="planner_patience" value="5.0"/>
+
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>
     <param name="controller_frequency" value="5.0"/>
     <param name="controller_patience" value="5.0"/>
@@ -38,7 +44,7 @@
 
   <!-- ****** amcl ***** -->
   <include file="$(find second_project)/launch/amcl.launch.xml">
-    <arg name="scan_topic" value="scan"/>
+    <arg name="scan_topic" value="scan_merged"/>
     <arg name="use_map_topic" value="true"/>
     <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>

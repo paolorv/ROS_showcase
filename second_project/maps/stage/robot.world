@@ -17,7 +17,7 @@ interval_sim 100
 
 window
 (
-  size [ 800 600 ]
+  size [ 681 377 ]
   center [ 0 0 ]
   rotate [ 0 0 ]
   scale 20
