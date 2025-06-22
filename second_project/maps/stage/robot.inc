@@ -2,9 +2,9 @@ define laser ranger
 (
   sensor
   (
-    range_max 8.0
-    fov 270.0
-    samples 540
+    range_max 100.0
+    fov 360.0
+    samples 1080
   )
   color "black"
   size [ 0.06 0.15 0.03 ]
@@ -21,7 +21,7 @@ define robot position
   drive "diff"
   color "red"
   
-  laser(pose [ 0.27 0 0 0 ])
+  laser(pose [ 0 0 0 0 ])
   
   velocity_bounds [-0.5 0.5 0 0 0 0 -90.0 90.0 ]
   acceleration_bounds [-0.5 0.5 0 0 0 0 -90 90.0 ]
