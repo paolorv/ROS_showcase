@@ -2,7 +2,6 @@
 
 [![ROS Version](https://img.shields.io/badge/ROS-Noetic-green.svg)](http://wiki.ros.org/noetic)
 [![Language](https://img.shields.io/badge/C%2B%2B-14%2B-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 This repository contains two robotics projects developed in C++ for the **Robotics** course at *Politecnico di Milano*. The projects cover the full autonomous navigation pipeline: from low-level kinematics and GPS coordinate transformations to 2D SLAM (Simultaneous Localization and Mapping) and autonomous path planning using the ROS Navigation Stack.
 
